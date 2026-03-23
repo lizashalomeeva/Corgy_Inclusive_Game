@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DINO ІНКЛЮЗІЯ"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:layout_marginBottom="48dp"/>
+
+        <Button
+            android:id="@+id/btnMenuStart"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Почати гру"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnMenuSettings"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Налаштування"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnMenuExit"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Вихід"
+            android:textSize="20sp"
+            android:backgroundTint="#F44336"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/gameArea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="Рахунок: 0"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333333"/>
+
+        <TextView
+            android:id="@+id/tvHighScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Рекорд: 0"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#888888"/>
+
+        <TextView
+            android:id="@+id/tvGameOver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="ГРА ЗАКІНЧЕНА!"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/gameOverButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGameOver"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Почати знову"
+                android:textSize="18sp"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnBackToMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="В головне меню"
+                android:textSize="18sp"
+                android:backgroundTint="#888888"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/groundLine"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:background="#555555"/>
+
+        <ImageView
+            android:id="@+id/ivDino"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_above="@id/groundLine"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="-40dp"
+            android:src="@drawable/corgy"
+            android:scaleType="fitCenter"
+            android:contentDescription="Песик Коргі"/>
+
+        <ImageView
+            android:id="@+id/ivCactus"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:layout_above="@id/groundLine"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="-20dp"
+            android:src="@drawable/cactus"
+            android:scaleType="fitCenter"
+            android:contentDescription="Великий Кактус перешкода"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/settingsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Налаштування"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="48dp"
+            android:textColor="#000000"/>
+
+        <Switch
+            android:id="@+id/switchHaptics"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Вібрація (Тактильний відгук)"
+            android:textSize="18sp"
+            android:checked="true"
+            android:textColor="#000000"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#888888"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <Switch
+            android:id="@+id/switchContrast"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Високий контраст"
+            android:textSize="18sp"
+            android:checked="false"
+            android:textColor="#000000"/>
+
+        <android.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnSettingsBack"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Повернутися в меню"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</FrameLayout>
