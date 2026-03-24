@@ -48,3 +48,39 @@ footer { background: #222; color: #aaa; text-align: center; padding: 2rem 0; mar
 .visual-demonstration { text-align: center; margin-top: 2rem; }
 .responsive-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 .keywords { font-size: 0.9rem; color: #555; margin-top: 1rem; }
+
+/* Логотип університету в Header */
+.university-logo {
+    max-height: 40px; /* Задаємо фіксовану висоту, щоб не зламати шапку */
+    width: auto;      /* Ширина вираховується автоматично, зберігаючи пропорції */
+    vertical-align: middle; /* Вирівнювання по центру з текстом */
+    margin-right: 15px; /* Відступ від тексту Corgi App */
+}
+
+/* Оновлення контейнера логотипа для правильного вирівнювання */
+.logo-box {
+    display: flex;
+    align-items: center;
+}
+
+/* Контейнер для демонстрації гри */
+.visual-demonstration {
+    text-align: center; /* Центруємо картинку */
+    margin-top: 2.5rem; /* Відступ від тексту */
+}
+
+/* Спрайт гри (Адаптивне зображення) */
+.responsive-img {
+    max-width: 100%; /* Картинка ніколи не вилазить за межі екрана */
+    height: auto;    /* Зберігаємо пропорції при масштабуванні */
+    border-radius: 12px; /* Красиві закруглені кути */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Красива тінь */
+}
+
+/* Адаптація логотипа під мобільні пристрої */
+@media (max-width: 768px) {
+    .university-logo {
+        max-height: 30px; /* Зменшуємо логотип на малих екранах */
+        margin-right: 10px;
+    }
+}
