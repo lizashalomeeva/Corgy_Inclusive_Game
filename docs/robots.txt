@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lizashalomeeva.github.io/Dino_Inclusive_Game/sitemap.xml
