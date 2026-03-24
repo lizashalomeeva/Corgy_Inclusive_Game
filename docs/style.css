@@ -42,3 +42,9 @@ footer { background: #222; color: #aaa; text-align: center; padding: 2rem 0; mar
     nav ul { flex-wrap: wrap; justify-content: center; }
     .hero h1 { font-size: 1.8rem; }
 }
+
+/* Адаптивні зображення та логотип */
+.university-logo { max-height: 40px; width: auto; vertical-align: middle; margin-right: 10px; }
+.visual-demonstration { text-align: center; margin-top: 2rem; }
+.responsive-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.keywords { font-size: 0.9rem; color: #555; margin-top: 1rem; }
