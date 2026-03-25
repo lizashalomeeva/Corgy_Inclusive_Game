@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="HardcodedText" severity="warning" />
+    <issue id="RtlHardcoded" severity="warning" />
+    <issue id="ContentDescription" severity="error" />
+
+    <issue id="all">
+        <ignore path="build/**" />
+        <ignore path="src/test/**" />
+    </issue>
+</lint>
