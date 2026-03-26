@@ -1,0 +1,86 @@
+/* CSS Reset / Normalize */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #fcfcfc; }
+
+/* Типографіка */
+h1, h2, h3, h4 { margin-bottom: 1rem; color: #111; }
+p { margin-bottom: 1rem; }
+a { color: #4CAF50; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Структура */
+.container { width: 90%; max-width: 1100px; margin: 0 auto; }
+.section-block { padding: 4rem 0; border-bottom: 1px solid #eee; }
+.bg-light { background-color: #f5f5f5; border-radius: 8px; padding: 2rem; margin: 2rem auto; }
+
+/* Header */
+header { background: #333; color: #fff; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+.header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.logo-text { font-size: 1.5rem; font-weight: bold; color: #4CAF50; }
+nav ul { list-style: none; display: flex; gap: 1.5rem; }
+nav a { color: #fff; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 5rem 0; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+.hero h1 { font-size: 2.5rem; color: #2E7D32; }
+.subtitle { font-size: 1.2rem; color: #666; font-weight: normal; margin-bottom: 2rem; }
+.btn { display: inline-block; padding: 10px 25px; background: #4CAF50; color: #fff; border-radius: 5px; font-weight: bold; margin-top: 1rem; }
+.btn:hover { background: #388E3C; text-decoration: none; }
+
+/* Lists & Grid */
+.task-list { padding-left: 2rem; margin-bottom: 1.5rem; }
+.task-list li { margin-bottom: 0.5rem; }
+.results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.result-item { background: #fff; padding: 1.5rem; border-left: 4px solid #4CAF50; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* Footer */
+footer { background: #222; color: #aaa; text-align: center; padding: 2rem 0; margin-top: 2rem; }
+
+/* Адаптивність (Responsiveness) */
+@media (max-width: 768px) {
+    .header-content { flex-direction: column; gap: 1rem; text-align: center; }
+    nav ul { flex-wrap: wrap; justify-content: center; }
+    .hero h1 { font-size: 1.8rem; }
+}
+
+/* Адаптивні зображення та логотип */
+.university-logo { max-height: 40px; width: auto; vertical-align: middle; margin-right: 10px; }
+.visual-demonstration { text-align: center; margin-top: 2rem; }
+.responsive-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.keywords { font-size: 0.9rem; color: #555; margin-top: 1rem; }
+
+/* Логотип університету в Header */
+.university-logo {
+    max-height: 40px; /* Задаємо фіксовану висоту, щоб не зламати шапку */
+    width: auto;      /* Ширина вираховується автоматично, зберігаючи пропорції */
+    vertical-align: middle; /* Вирівнювання по центру з текстом */
+    margin-right: 15px; /* Відступ від тексту Corgi App */
+}
+
+/* Оновлення контейнера логотипа для правильного вирівнювання */
+.logo-box {
+    display: flex;
+    align-items: center;
+}
+
+/* Контейнер для демонстрації гри */
+.visual-demonstration {
+    text-align: center; /* Центруємо картинку */
+    margin-top: 2.5rem; /* Відступ від тексту */
+}
+
+/* Спрайт гри (Адаптивне зображення) */
+.responsive-img {
+    max-width: 100%; /* Картинка ніколи не вилазить за межі екрана */
+    height: auto;    /* Зберігаємо пропорції при масштабуванні */
+    border-radius: 12px; /* Красиві закруглені кути */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Красива тінь */
+}
+
+/* Адаптація логотипа під мобільні пристрої */
+@media (max-width: 768px) {
+    .university-logo {
+        max-height: 30px; /* Зменшуємо логотип на малих екранах */
+        margin-right: 10px;
+    }
+}

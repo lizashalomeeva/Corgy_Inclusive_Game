@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інклюзивна гра Коргі | Бакалаврська робота</title>
+
+    <meta name="description" content="Розробка інформаційної системи мобільного ігрового додатку з механізмами інклюзивної взаємодії для платформи Android.">
+    <meta name="keywords" content="Android, Java, Інклюзивність, Accessibility, Мобільна гра">
+    <meta name="author" content="Шаломєєва Єлизавета">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Інклюзивний мобільний додаток на платформі Android">
+    <meta property="og:description" content="Бакалаврська робота: гра з високим контрастом та тактильним відгуком.">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Dino Inclusive Game (Corgi)",
+      "operatingSystem": "Android",
+      "applicationCategory": "GameApplication",
+      "author": {
+        "@type": "Person",
+        "name": "Шаломєєва Єлизавета"
+      },
+      "description": "Мобільна гра з механізмами доступності для людей з порушеннями зору та моторики."
+    }
+    </script>
+</head>
+<body>
+    <header role="banner">
+        <div class="container header-content">
+            <div class="logo-box">
+                <img src="sumdu_logo.png" alt="Логотип Сумського державного університету" class="university-logo">
+                <span class="logo-text" aria-label="Логотип проєкту">Corgi App</span>
+            </div>
+                <span class="logo-text" aria-label="Логотип проєкту">Corgi App</span>
+            </div>
+            <nav role="navigation" aria-label="Головне меню">
+                <ul>
+                    <li><a href="#about">Актуальність</a></li>
+                    <li><a href="#tasks">Завдання</a></li>
+                    <li><a href="#methodology">Методологія</a></li>
+                    <li><a href="#results">Результати</a></li>
+                    <li><a href="#contacts">Контакти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="hero" class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title">Інформаційна система мобільного ігрового додатку з механізмами інклюзивної взаємодії користувача</h1>
+                <h2 class="subtitle">Bachelor Thesis: Inclusive Android Gaming</h2>
+                <p class="keywords"><strong>Ключові слова:</strong> Android, Java, Інклюзивність, Accessibility, Мобільна гра.</p>
+                <a href="https://github.com/lizashalomeeva/Corgy_Inclusive_Game" class="btn" target="_blank" rel="noopener noreferrer">Код на GitHub</a>
+            </div>
+        </section>
+
+        <section id="about" class="container section-block">
+            <h3>Актуальність теми</h3>
+            <p>
+                У сучасному світі мобільні ігри часто ігнорують потреби користувачів з обмеженими можливостями (Accessibility). Проєкт вирішує проблему ізоляції таких користувачів, створюючи ігрову механіку, яка прощає моторні помилки та забезпечує мультисенсорний зворотний зв'язок.
+            </p>
+
+            <div class="visual-demonstration">
+                <img src="game_demo.png" alt="Демонстрація інклюзивної гри Коргі з високим контрастом та тактильним відгуком" class="responsive-img" loading="lazy">
+            </div>
+        </section>
+
+        <section id="tasks" class="container section-block bg-light">
+            <h3>Мета та основні завдання</h3>
+            <ul class="task-list">
+                <li>Провести аналіз стандартів Web Content Accessibility Guidelines (WCAG) для мобільних додатків.</li>
+                <li>Розробити архітектуру нативного Android-додатку мовою Java.</li>
+                <li>Реалізувати ігрову механіку з оптимізованими хітбоксами (зменшення зони ураження на 30%).</li>
+                <li>Впровадити режим "Високого контрасту" для людей з порушеннями зору.</li>
+                <li>Додати тактильний відгук для інформування про ігрові події.</li>
+            </ul>
+        </section>
+
+        <section id="methodology" class="container section-block">
+            <h3>Методологія дослідження</h3>
+            <p>
+                Розробка здійснюється у середовищі <strong>Android Studio</strong> з використанням нативних інструментів Android SDK (Java, XML). Фізика гри реалізована програмно через розрахунок координат та використання об'єктів Rect для точної реєстрації зіткнень.
+            </p>
+        </section>
+
+        <section id="results" class="container section-block bg-light">
+            <h3>Очікувані результати</h3>
+            <div class="results-grid">
+                <div class="result-item">
+                    <h4>Інклюзивність</h4>
+                    <p>Повноцінна підтримка контрастних тем та вібраційного відгуку.</p>
+                </div>
+                <div class="result-item">
+                    <h4>Швидкодія</h4>
+                    <p>Стабільні 50 кандрів на секунду (оновлення екрану кожні 20мс).</p>
+                </div>
+                <div class="result-item">
+                    <h4>Готовий продукт</h4>
+                    <p>Робочий APK-файл гри, готовий до встановлення на Android-смартфони.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="container section-block">
+            <h3>Контактна інформація</h3>
+            <div class="contact-info">
+                <p><strong>Виконавець:</strong> ст. гр. ІН-24 Шаломєєва Є.</p>
+                <p><strong>Університет:</strong> Сумський державний університет</p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/lizashalomeeva" target="_blank" rel="noopener noreferrer">github.com/lizashalomeeva</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>© 2026 Сумський державний університет. Бакалаврський проєкт.</p>
+        </div>
+    </footer>
+</body>
+</html>
