@@ -17,22 +17,22 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 /**
- * Main entry point for the Corgy Inclusive Game.
- * <p><b>Architecture:</b> Follows the MVC pattern. Handles UI initialization
- * and delegates physics calculations to the game engine.</p>
- * <p><b>Business Logic:</b> Manages accessibility features (high contrast mode)
- * based on user preferences.</p>
- * * <p><b>Example Usage (Test-Driven Documentation):</b></p>
+ * Головний клас-контролер гри Corgy Inclusive Game.
+ * <p><b>Архітектура (Architecture):</b> Відповідає патерну MVC (Controller).
+ * Ініціалізує UI-компоненти та керує ігровим циклом через {@link android.os.Handler}.</p>
+ * <p><b>Бізнес-логіка (Business Logic):</b> Забезпечує доступність гри (Accessibility)
+ * завдяки підтримці режиму високого контрасту та тактильного відгуку.</p>
+ *
+ * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
  * <pre>
  * {@code
- * MainActivity activity = Robolectric.setupActivity(MainActivity.class);
- * assertTrue(activity.isHighContrastModeEnabled());
+ * MainActivity activity = Robolectric.buildActivity(MainActivity.class).create().get();
+ * assertNotNull(activity);
  * }
  * </pre>
  * * @author Liza Shalomeeva
  * @version 1.0
  */
-
 public class MainActivity extends Activity {
 
     // UI Елементи (Меню та Налаштування)
@@ -148,6 +148,20 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * Застосовує візуальну тему залежно від налаштувань інклюзивності.
+     * <p><b>Взаємодія компонентів:</b> Динамічно змінює кольори фону, тексту та ігрових об'єктів.</p>
+     * <p><b>Бізнес-логіка:</b> Забезпечує читабельність для людей з вадами зору через режим високого контрасту.</p>
+     *
+     * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
+     * <pre>
+     * {@code
+     * activity.highContrastEnabled = true;
+     * activity.applyTheme();
+     * assertEquals(Color.BLACK, ((ColorDrawable) activity.rootLayout.getBackground()).getColor());
+     * }
+     * </pre>
+     */
     private void applyTheme() {
         int bgColor, textColor, highScoreColor;
 
@@ -222,6 +236,13 @@ public class MainActivity extends Activity {
         dinoVelocityY = jumpForce;
     }
 
+    /**
+     * Запускає головний ігровий цикл (Game Loop) з оновленням у 20 мілісекунд.
+     * <p><b>Архітектура:</b> Використовує {@code Handler.postDelayed()} для створення неблокуючого
+     * потоку оновлення фізики та перемальовування UI.</p>
+     * <p><b>Взаємодія компонентів:</b> Кожного тіку оновлює координати перешкод (Cactus)
+     * та викликає перевірку зіткнень {@link #checkCollision()}.</p>
+     */
     private void startGameLoop() {
         gameRunnable = new Runnable() {
             @Override
@@ -268,6 +289,23 @@ public class MainActivity extends Activity {
         gameHandler.post(gameRunnable);
     }
 
+    /**
+     * Перевіряє зіткнення між головним персонажем та перешкодою.
+     * <p><b>Складний алгоритм (Algorithm):</b> Замість використання стандартних меж зображення (Bounding Box),
+     * метод створює зменшені "хітбокси" за допомогою {@code Rect.inset()}.
+     * Це робить гру більш справедливою (forgiving) по відношенню до гравця, ігноруючи порожні пікселі по краях спрайтів.</p>
+     *
+     * @return true, якщо хітбокси Коргі та Кактуса перетинаються (сталося зіткнення), інакше - false.
+     *
+     * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
+     * <pre>
+     * {@code
+     * activity.ivDino.setTranslationX(100f);
+     * activity.ivCactus.setTranslationX(100f); // Накладаємо об'єкти
+     * assertTrue(activity.checkCollision());
+     * }
+     * </pre>
+     */
     private boolean checkCollision() {
         Rect dinoRect = new Rect();
         ivDino.getHitRect(dinoRect);
@@ -277,7 +315,7 @@ public class MainActivity extends Activity {
 
         //хітбокси:
 
-        // Для Коргі
+        // Для Коргі (зменшуємо межі зіткнення на 30% по ширині та 25% по висоті)
         int dinoInsetX = (int) (ivDino.getWidth() * 0.30);
         int dinoInsetY = (int) (ivDino.getHeight() * 0.25);
         dinoRect.inset(dinoInsetX, dinoInsetY);
