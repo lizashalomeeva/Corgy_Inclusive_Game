@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: Corgy Inclusive Game - Leaderboard API
+  version: 1.0.0
+  description: API for managing global player scores.
+paths:
+  /scores:
+    get:
+      summary: Get top scores
+      responses:
+        '200':
+          description: A list of top scores
+          content:
+            application/json:
+              example: [{"player": "Liza", "score": 950}]

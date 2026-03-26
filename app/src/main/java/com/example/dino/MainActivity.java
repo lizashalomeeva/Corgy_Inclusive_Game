@@ -16,6 +16,23 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+/**
+ * Main entry point for the Corgy Inclusive Game.
+ * <p><b>Architecture:</b> Follows the MVC pattern. Handles UI initialization
+ * and delegates physics calculations to the game engine.</p>
+ * <p><b>Business Logic:</b> Manages accessibility features (high contrast mode)
+ * based on user preferences.</p>
+ * * <p><b>Example Usage (Test-Driven Documentation):</b></p>
+ * <pre>
+ * {@code
+ * MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+ * assertTrue(activity.isHighContrastModeEnabled());
+ * }
+ * </pre>
+ * * @author Liza Shalomeeva
+ * @version 1.0
+ */
+
 public class MainActivity extends Activity {
 
     // UI Елементи (Меню та Налаштування)
