@@ -15,22 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 /**
  * Головний клас-контролер гри Corgy Inclusive Game.
- * <p><b>Архітектура (Architecture):</b> Відповідає патерну MVC (Controller).
- * Ініціалізує UI-компоненти та керує ігровим циклом через {@link android.os.Handler}.</p>
- * <p><b>Бізнес-логіка (Business Logic):</b> Забезпечує доступність гри (Accessibility)
- * завдяки підтримці режиму високого контрасту та тактильного відгуку.</p>
- *
- * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
- * <pre>
- * {@code
- * MainActivity activity = Robolectric.buildActivity(MainActivity.class).create().get();
- * assertNotNull(activity);
- * }
- * </pre>
- * * @author Liza Shalomeeva
+ * @author Liza Shalomeeva
  * @version 1.0
  */
 public class MainActivity extends Activity {
@@ -74,7 +66,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // --- СИСТЕМА ЛОГУВАННЯ ТА ОБРОБКИ ПОМИЛОК ---
+        GameLogger.init(this);
+        Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
+        GameLogger.log(GameLogger.INFO, "MainActivity", "Game Application Started", null);
+        // ---------------------------------------------
+
         setContentView(R.layout.activity_main);
+        checkForPreviousCrash();
 
         initViews();
         screenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -148,25 +148,11 @@ public class MainActivity extends Activity {
         });
     }
 
-    /**
-     * Застосовує візуальну тему залежно від налаштувань інклюзивності.
-     * <p><b>Взаємодія компонентів:</b> Динамічно змінює кольори фону, тексту та ігрових об'єктів.</p>
-     * <p><b>Бізнес-логіка:</b> Забезпечує читабельність для людей з вадами зору через режим високого контрасту.</p>
-     *
-     * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
-     * <pre>
-     * {@code
-     * activity.highContrastEnabled = true;
-     * activity.applyTheme();
-     * assertEquals(Color.BLACK, ((ColorDrawable) activity.rootLayout.getBackground()).getColor());
-     * }
-     * </pre>
-     */
     private void applyTheme() {
         int bgColor, textColor, highScoreColor;
 
         if (highContrastEnabled) {
-            // Тема високого контрасту (Чорно-біла для кращого сприйняття)
+            GameLogger.log(GameLogger.DEBUG, "Settings", "High Contrast mode enabled", null);
             bgColor = Color.BLACK;
             textColor = Color.WHITE;
             highScoreColor = Color.LTGRAY;
@@ -175,7 +161,6 @@ public class MainActivity extends Activity {
             ivCactus.clearColorFilter();
             groundLine.setBackgroundColor(Color.WHITE);
         } else {
-            // Звичайна колірна тема
             bgColor = Color.WHITE;
             textColor = Color.parseColor("#333333");
             highScoreColor = Color.parseColor("#888888");
@@ -194,6 +179,7 @@ public class MainActivity extends Activity {
     }
 
     private void startGame() {
+        GameLogger.log(GameLogger.DEBUG, "GameEngine", "New game session started", null);
         isGameRunning = true;
         score = 0;
         cactusSpeed = 15f;
@@ -201,7 +187,6 @@ public class MainActivity extends Activity {
         tvGameOver.setVisibility(View.GONE);
         gameOverButtons.setVisibility(View.GONE);
 
-        // кактус одразу за правим краєм
         ivCactus.setTranslationX(200f);
         currentDinoY = 0f;
         dinoVelocityY = 0f;
@@ -221,6 +206,7 @@ public class MainActivity extends Activity {
     }
 
     private void gameOver() {
+        GameLogger.log(GameLogger.INFO, "GameEngine", "Game Over. Final Score: " + score, null);
         isGameRunning = false;
         tvGameOver.setVisibility(View.VISIBLE);
         gameOverButtons.setVisibility(View.VISIBLE);
@@ -236,13 +222,6 @@ public class MainActivity extends Activity {
         dinoVelocityY = jumpForce;
     }
 
-    /**
-     * Запускає головний ігровий цикл (Game Loop) з оновленням у 20 мілісекунд.
-     * <p><b>Архітектура:</b> Використовує {@code Handler.postDelayed()} для створення неблокуючого
-     * потоку оновлення фізики та перемальовування UI.</p>
-     * <p><b>Взаємодія компонентів:</b> Кожного тіку оновлює координати перешкод (Cactus)
-     * та викликає перевірку зіткнень {@link #checkCollision()}.</p>
-     */
     private void startGameLoop() {
         gameRunnable = new Runnable() {
             @Override
@@ -269,7 +248,6 @@ public class MainActivity extends Activity {
                     score++;
                     tvScore.setText("Рахунок: " + score);
 
-                    // рекорд
                     if (score > highScore) {
                         highScore = score;
                         tvHighScore.setText("Рекорд: " + highScore);
@@ -289,23 +267,6 @@ public class MainActivity extends Activity {
         gameHandler.post(gameRunnable);
     }
 
-    /**
-     * Перевіряє зіткнення між головним персонажем та перешкодою.
-     * <p><b>Складний алгоритм (Algorithm):</b> Замість використання стандартних меж зображення (Bounding Box),
-     * метод створює зменшені "хітбокси" за допомогою {@code Rect.inset()}.
-     * Це робить гру більш справедливою (forgiving) по відношенню до гравця, ігноруючи порожні пікселі по краях спрайтів.</p>
-     *
-     * @return true, якщо хітбокси Коргі та Кактуса перетинаються (сталося зіткнення), інакше - false.
-     *
-     * <p><b>Приклад використання (Test-Driven Documentation):</b></p>
-     * <pre>
-     * {@code
-     * activity.ivDino.setTranslationX(100f);
-     * activity.ivCactus.setTranslationX(100f); // Накладаємо об'єкти
-     * assertTrue(activity.checkCollision());
-     * }
-     * </pre>
-     */
     private boolean checkCollision() {
         Rect dinoRect = new Rect();
         ivDino.getHitRect(dinoRect);
@@ -313,18 +274,42 @@ public class MainActivity extends Activity {
         Rect cactusRect = new Rect();
         ivCactus.getHitRect(cactusRect);
 
-        //хітбокси:
-
-        // Для Коргі (зменшуємо межі зіткнення на 30% по ширині та 25% по висоті)
         int dinoInsetX = (int) (ivDino.getWidth() * 0.30);
         int dinoInsetY = (int) (ivDino.getHeight() * 0.25);
         dinoRect.inset(dinoInsetX, dinoInsetY);
 
-        // Для Кактуса
         int cactusInsetX = (int) (ivCactus.getWidth() * 0.35);
         int cactusInsetY = (int) (ivCactus.getHeight() * 0.15);
         cactusRect.inset(cactusInsetX, cactusInsetY);
 
         return Rect.intersects(dinoRect, cactusRect);
+    }
+    private void checkForPreviousCrash() {
+        SharedPreferences prefs = getSharedPreferences("CrashPrefs", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("crashed_last_time", false)) {
+            String errorId = prefs.getString("crash_error_id", "UNKNOWN");
+
+            // Очищаємо прапорець, щоб не показувати вікно вічно
+            prefs.edit().putBoolean("crashed_last_time", false).apply();
+
+            // Створюємо зрозуміле повідомлення без технічних деталей
+            new AlertDialog.Builder(this)
+                    .setTitle("Ой, Коргі спіткнувся! 🐶")
+                    .setMessage("Минулого разу гра несподівано закрилася.\n\n" +
+                            "Що робити: Переконайтеся, що на пристрої достатньо пам'яті, або спробуйте перезавантажити гру.\n\n" +
+                            "Код помилки для підтримки: " + errorId)
+                    .setPositiveButton("Повідомити про проблему", (dialog, which) -> {
+                        // Можливість надіслати лог розробникам
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.setType("text/plain");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@corgygame.com"});
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Crash Report: " + errorId);
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, "Будь ласка, опишіть, що ви робили перед вильотом гри:\n\n...");
+                        startActivity(Intent.createChooser(emailIntent, "Надіслати звіт розробнику..."));
+                    })
+                    .setNegativeButton("Закрити", null)
+                    .setCancelable(false)
+                    .show();
+        }
     }
 }
